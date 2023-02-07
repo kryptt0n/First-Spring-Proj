@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,20 +15,37 @@ public class GreetingController {
     private final AtomicInteger counter = new AtomicInteger();
 
     @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "world!") String name) throws SQLException {
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "world!!") String name) throws SQLException {
         String curName = "";
-        String sqlQuery = "select * from users where id = %d";
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(String.format(sqlQuery, counter.incrementAndGet()))) {
+        String sqlQuery = "";
+        if (!name.equals("world!!")) {
+            sqlQuery = "INSERT INTO users(name, level, created_date) VALUES ('INS_NAME', 0, 'INS_DATE')";
+            sqlQuery = sqlQuery.replaceAll("INS_NAME", name);
+            sqlQuery = sqlQuery.replaceAll("INS_DATE", String.valueOf(LocalDate.now()));
+        } else {
+            sqlQuery = "select * from users where id = INS_ID";
+            sqlQuery = sqlQuery.replaceAll("INS_ID", String.valueOf(counter.incrementAndGet()));
+        }
 
-            resultSet.next();
+        LocalDate localDate = LocalDate.now();
+        int id = 0;
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.5:3306/test", "vitos", "vitos");
+            Statement statement = connection.createStatement()) {
 
-            curName = resultSet.getString("name");
+            Boolean hasResults = statement.execute(sqlQuery);
+            if (hasResults) {
+                ResultSet resultSet = statement.getResultSet();
+                resultSet.next();
+                if (counter.get() == 4)
+                    counter.set(0);
 
+                curName = resultSet.getString("name");
+                id = resultSet.getInt("id");
+                localDate = resultSet.getObject(4, LocalDate.class);
+            }
 
         }
 
-        return new Greeting(counter.incrementAndGet(), String.format(TEMPLATE, curName));
+        return new Greeting(id, String.format(TEMPLATE, curName), localDate);
     }
 }

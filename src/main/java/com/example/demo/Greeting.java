@@ -1,5 +1,7 @@
 package com.example.demo;
 
-public record Greeting(long id, String content) {
+import java.time.LocalDate;
+
+public record Greeting(long id, String content, LocalDate localDate) {
 
 }
