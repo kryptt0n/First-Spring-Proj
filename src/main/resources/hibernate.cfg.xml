@@ -1,0 +1,15 @@
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/test</property>
+        <property name="connection.username">vitos</property>
+        <property name="connection.password">vitos</property>
+        <property name="hibernate.show_sql ">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <mapping class="com.example.database.Task"/>
+        <mapping class="com.example.database.User"/>
+
+    </session-factory>
+</hibernate-configuration>
