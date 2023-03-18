@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @RestController
 public class TaskServlet extends HttpServlet {
     @Override
-    @GetMapping("/tasks")
+    @GetMapping("/tasksServlet")
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         LocalDate localDate = LocalDate.now();

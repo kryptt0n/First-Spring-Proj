@@ -10,6 +10,7 @@
         <property name="hbm2ddl.auto">update</property>
         <mapping class="com.example.database.Task"/>
         <mapping class="com.example.database.User"/>
+        <mapping class="com.example.database.Food"/>
 
     </session-factory>
 </hibernate-configuration>
