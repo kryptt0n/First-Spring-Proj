@@ -29,7 +29,7 @@ public class GreetingController {
 
         LocalDate localDate = LocalDate.now();
         int id = 0;
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.5:3306/test", "vitos", "vitos");
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/test", "vitos", "vitos");
             Statement statement = connection.createStatement()) {
 
             Boolean hasResults = statement.execute(sqlQuery);

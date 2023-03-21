@@ -11,7 +11,7 @@ public class TransactionController {
     @GetMapping("/transaction")
     public void transact() {
 
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.5:3306/test", "vitos", "vitos");
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/test", "vitos", "vitos");
             Statement statement = connection.createStatement()) {
 
             connection.setAutoCommit(false);

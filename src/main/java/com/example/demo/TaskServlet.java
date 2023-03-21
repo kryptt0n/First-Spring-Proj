@@ -21,7 +21,7 @@ public class TaskServlet extends HttpServlet {
         String user_id = request.getParameter("userId");
         PrintWriter pw = response.getWriter();
 
-        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.5:3306/test", "vitos", "vitos")) {
+        try(Connection connection = DriverManager.getConnection("jdbc:mysql://192.168.1.6:3306/test", "vitos", "vitos")) {
 
             if (name != null && user_id != null) {
                 String sqlQuery = "INSERT INTO tasks(name, register_date, user_id) VALUES (?,?,?)";
