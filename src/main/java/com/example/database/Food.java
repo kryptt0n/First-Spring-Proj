@@ -2,15 +2,16 @@ package com.example.database;
 
 import jakarta.persistence.*;
 
-@Entity
 @Table(name = "food")
+@Entity
 public class Food {
+
     @Id
-    @GeneratedValue
     @Column(name = "food_id")
+    @GeneratedValue
     public Integer id;
 
-    @Column(length = 20)
+    @Column
     public String name;
 
     @Override
