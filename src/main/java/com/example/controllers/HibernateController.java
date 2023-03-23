@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.controllers;
 
 import com.example.database.Task;
 import com.example.database.User;

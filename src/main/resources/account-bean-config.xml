@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="PCSetup" class="com.example.beans.PCSetup">
+        <constructor-arg name="keyboard" ref="keyboard" />
+        <constructor-arg name="monitor" ref="monitor" />
+    </bean>
+
+    <bean id="keyboard" class="com.example.beans.Keyboard">
+        <constructor-arg name="name" value="Razer"/>
+        <constructor-arg name="price" value="100" type="Integer"/>
+    </bean>
+
+    <bean id="monitor" class="com.example.beans.Monitor">
+        <constructor-arg name="name" value="Asus"/>
+        <constructor-arg name="size" value="1920x1080"/>
+    </bean>
+</beans>

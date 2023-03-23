@@ -2,6 +2,7 @@ package com.example.demo;
 
 
 import com.example.database.Task;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

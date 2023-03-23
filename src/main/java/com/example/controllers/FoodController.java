@@ -1,6 +1,7 @@
-package com.example.demo;
+package com.example.controllers;
 
 import com.example.database.Food;
+import com.example.demo.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
