@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,19 +20,15 @@ import java.util.Objects;
 @RestController
 public class HibernateController {
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     @GetMapping("/hibernate")
     public String hibernate() {
-        init();
         List<Integer> levels = new ArrayList<>();
         Collections.addAll(levels, 100, 200, 1);
         getUsersWithLevel(levels).forEach(System.out::println);
         return "";
-    }
-
-    private void init() {
-        sessionFactory = new Configuration().configure().addPackage("com.example.database").buildSessionFactory();
     }
 
     private User createUser(String name, Integer lvl) {
