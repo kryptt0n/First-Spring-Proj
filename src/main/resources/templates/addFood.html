@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+    <h1>Lets add some food!</h1>
+    <form action="#" data-th-action="@{/food/add}" data-th-object="${food}" class="Food" method="post">
+        <tr>
+            <td><p data-th-text="${food.id}"></p></td>
+            <td><p data-th-text="${food.name}"></p></td>
+            <td><input type="text" data-th-field="${food.name}"></td>
+        </tr>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

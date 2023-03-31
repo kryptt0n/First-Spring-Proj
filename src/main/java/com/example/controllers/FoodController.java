@@ -2,8 +2,12 @@ package com.example.controllers;
 
 import com.example.database.Food;
 import com.example.demo.NotFoundException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,6 +20,9 @@ import java.util.Map;
 public class FoodController {
 
     private List<Map<String, String>> list = new ArrayList<>();
+
+    @Autowired
+    private SessionFactory sessionFactory;
     private int counter = 2;
 
     {
@@ -37,9 +44,21 @@ public class FoodController {
                 .orElseThrow(NotFoundException::new);
     }
 
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/addFood")
     public @ResponseBody void addFood(@RequestParam String name) {
-        list.add(new HashMap<>(){{put("id", String.valueOf(++counter)); put("name", name);}});
+        try(Session session = sessionFactory.openSession()) {
+            Food food = new Food();
+            food.name = name;
+            session.persist(food);
+        }
+    }
+
+    @PostMapping(path = "/add")
+    public String saveFood(@ModelAttribute Food food, BindingResult result, Model model) {
+        try(Session session = sessionFactory.openSession()) {
+            session.persist(food);
+            return "success";
+        }
     }
 
     @DeleteMapping(path = "/delete/{id}")

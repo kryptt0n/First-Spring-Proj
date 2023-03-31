@@ -1,6 +1,7 @@
 package com.example.config;
 
 import com.example.beans.*;
+import com.example.database.Food;
 import com.example.demo.TaskRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -13,7 +14,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 
 @Configuration
-@ComponentScan("com.example.beans")
+@ComponentScan({"com.example.beans", "com.example.database"})
 public class AppConfiguration {
 
     @Bean

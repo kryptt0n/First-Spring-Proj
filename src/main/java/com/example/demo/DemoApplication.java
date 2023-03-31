@@ -16,10 +16,9 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
-		SingletonObj singletonObj1 = context.getBean(SingletonObj.class);
-		SingletonObj singletonObj2 = context.getBean(SingletonObj.class);
+		Employee employee = context.getBean(Employee.class);
 
-		System.out.println(singletonObj1 == singletonObj2);
+		System.out.println(employee.name);
 	}
 
 }

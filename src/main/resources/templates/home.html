@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <h1>Welcome to home page!</h1>
+    <p>Hello from <span data-th-text="${authorName}">Our App</span></p>
+</head>
+<body>
+    <h2>Here are some users!</h2>
+    <table>
+        <tr>
+            <th>Food name</th>
+        </tr>
+        <tr data-th-each="food: ${foods}">
+            <td data-th-text="${food.name}" />
+            <p></p>
+        </tr>
+    </table>
+    <form action="/foodHome">
+        <button type="submit"; value="Add food"> Add food</button>
+    </form>
+</body>
+</html>
