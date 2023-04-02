@@ -7,18 +7,16 @@
     <p>Hello from <span data-th-text="${authorName}">Our App</span></p>
 </head>
 <body>
-    <h2>Here are some users!</h2>
-    <table>
-        <tr>
-            <th>Food name</th>
-        </tr>
-        <tr data-th-each="food: ${foods}">
-            <td data-th-text="${food.name}" />
-            <p></p>
-        </tr>
-    </table>
-    <form action="/foodHome">
-        <button type="submit"; value="Add food"> Add food</button>
+    <h2>Here is some actions!</h2>
+
+    <form action="/foodAdd">
+        <button type="submit"> Add food</button>
+        <p></p>
+    </form>
+
+    <form action="/foodAll">
+        <button type="submit"> All food</button>
+        <p></p>
     </form>
 </body>
 </html>

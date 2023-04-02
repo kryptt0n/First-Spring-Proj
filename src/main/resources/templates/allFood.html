@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All food</title>
+</head>
+<body>
+  <h1>All food:</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+    </tr>
+    <tr data-th-each="food: ${foods}">
+      <td data-th-text="${food.id}">1</td>
+      <td data-th-text="${food.name}">Apple</td>
+      <td> <form action="#" data-th-action="@{/delete}" data-th-object="${food}" class="Food" method="delete">
+        <button type="submit"> Delete </button>
+      </form> </td>
+    </tr>
+  </table>
+</body>
+</html>

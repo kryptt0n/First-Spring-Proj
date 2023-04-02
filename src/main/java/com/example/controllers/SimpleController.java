@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 @Controller
 @PropertySource("classpath:application.properties")
 public class SimpleController {
@@ -33,17 +35,21 @@ public class SimpleController {
         return "home";
     }
 
-    @GetMapping(path = "/foodHome")
+    @GetMapping(path = "/foodAdd")
     public String foodPage(Model model) {
-        Food food = new Food();
-        food.id = 1;
-        food.name = "Apple";
-        model.addAttribute("food", food);
+        model.addAttribute("food", new Food());
         return "addFood";
     }
 
-
-
-
+    @GetMapping(path = "/foodAll")
+    public String foodAll(Model model) {
+        List<Food> foodList = null;
+        try(Session session = sessionFactory.openSession()) {
+            Query<Food> foods = session.createQuery("from Food", Food.class);
+            foodList = foods.list();
+        }
+        model.addAttribute("foods", foodList);
+        return "allFood";
+    }
 
 }

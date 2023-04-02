@@ -4,6 +4,8 @@ import com.example.database.Food;
 import com.example.demo.NotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -31,10 +33,6 @@ public class FoodController {
         list.add(new HashMap<>(){{put("id", "2"); put("name", "banana");}});
     }
 
-    @GetMapping
-    public @ResponseBody List<Map<String, String>> allFood() {
-        return list;
-    }
 
     @GetMapping(path = "/{id}")
     public @ResponseBody Map<String, String> foodById(@PathVariable(name = "id") String id) {
@@ -42,6 +40,16 @@ public class FoodController {
                 .filter(item -> item.get("id").equals(id))
                 .findFirst()
                 .orElseThrow(NotFoundException::new);
+    }
+
+    @GetMapping
+    public @ResponseBody List<Food> allFood() {
+        try(Session session = sessionFactory.openSession()) {
+            Query<Food> allFood = session.createQuery("from Food", Food.class);
+            return allFood.list();
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
     }
 
     @PostMapping(path = "/addFood")
@@ -55,9 +63,26 @@ public class FoodController {
 
     @PostMapping(path = "/add")
     public String saveFood(@ModelAttribute Food food, BindingResult result, Model model) {
+        Transaction tra = null;
         try(Session session = sessionFactory.openSession()) {
+            tra = session.beginTransaction();
             session.persist(food);
+            tra.commit();
+        } catch (Exception e) {
+            tra.rollback();
+        }
             return "success";
+    }
+
+    @DeleteMapping(path = "/delete")
+    public void foodDeleted(@ModelAttribute Food food, BindingResult result, Model model) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            session.remove(food);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
         }
     }
 
